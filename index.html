@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Carmon's Personal Website, 2025 edition" />
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <script src="./js/limitLoop.js"></script>
+    <title>Carmon.DEV</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div id="card">
+      <div id="darkbutton" onclick="javascript:toggleDarkMode()"></div>
+      <script>
+        const parser = new DOMParser();
+        const btn = document.getElementById('darkbutton');
+        const darkEl = parser.parseFromString(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>',
+          'image/svg+xml'
+        ).documentElement;
+        const lightEl = parser.parseFromString(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></svg>',
+          'image/svg+xml'
+        ).documentElement;
+        const setDarkMode = (isDark) => {
+          const root = document.querySelector(':root');
+          if (isDark) {
+            root.style.setProperty('--primary-color', 'white');
+            root.style.setProperty('--secondary-color', 'black');
+            if (btn.lastElementChild) btn.removeChild(btn.lastElementChild);
+            btn.appendChild(darkEl);
+          } else {
+            root.style.setProperty('--primary-color', 'black');
+            root.style.setProperty('--secondary-color', 'white');
+            if (btn.lastElementChild) btn.removeChild(btn.lastElementChild);
+            btn.appendChild(lightEl);
+          }
+        };
+        if (window.matchMedia) {
+          setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            setDarkMode(event.matches);
+          });
+        } else {
+          btn.appendChild(lightEl);
+        }
+        const toggleDarkMode = () => {
+          const root = document.querySelector(':root');
+          const style = getComputedStyle(root);
+          const isDark = style.getPropertyValue('--primary-color') === 'white';
+          setDarkMode(!isDark);
+        };
+      </script>
+      <span class="header">carmon[dot]dev</span>
+      <marquee>
+        <p>
+          Hello visitor 
+          <b hx-get="/api/visitor-message" hx-trigger="load once">
+            <span id="visitor_load"></span>
+            <script>
+              const e = document.getElementById('visitor_load');
+              let curr = 0;
+              const textFrames = ['\\', '|', '/', '~'];
+              limitLoop(
+                () => {
+                  if (curr === textFrames.length) curr = 0;
+                  const char = textFrames[curr];
+                  e.textContent = `${char}${char}${char}`;
+                  curr++;
+                }, 8);
+            </script>
+          </b>
+          my name is Emiliano and this is my personal site.  
+        </p>
+      </marquee>
+      <details class="section">
+        <summary>Work Experience</summary>
+        <div>
+          <script>
+            const showContact = () => {
+              const contact = document.getElementById('contact');
+              if (contact.open) return;
+              let tick = 0;
+              const blink = () => {
+                if (contact) {
+                  if (contact.classList.contains('negative')) {
+                    contact.classList.remove('negative');
+                  } else {
+                    contact.classList.add('negative');
+                  }
+                  tick++;
+                };
+                if (tick < 10) setTimeout(blink, 120);
+              }; 
+              setTimeout(blink, 120);
+            };
+            const ranges = [[80, 120], [150, 190], [220, 260], [300, 340], [380, 420], [440, 480]]
+            const texts = [
+            'I started working on React/preact standalone component to convert citation formats and ids from one to another (you can check this in https://www.bibtex.com/converters/). Implemented a prototype to read Word documents through the ASPOSE C++ API in backend, the prototype also used docs from Google Docs using (JS) gdocs API. Worked on SSO logins. Implemented a citation format highlighter in react using PrismJS, also for CSL citations and formats like BibTeX, JSON, RIS, and others. Worked on a URL converter to recreate the UI state of the app (redux) from different URL routes. Implemented a server-side rendered page for sharing data from the app to non-logged users. Also worked on UI using Storybook and Figma. Was part of the team that ported the old app done in ExtJS to a ReactJS version.',
+            'First as a part of web team, working on backend with NodeJS/Express and frontend with AmpersandJS/React, then being part of a Canvas team, working with React through webpack. I also took ownership of some enterprise services like a web to PDF/PNG exporter coded partially in Ruby and partially in NodeJS. Also worked with Storybook, Backstop and Jenkins for CI testing. Was 6 months in charge of the Facilitation Team, making full stack product features for the primary users of the app, the facilitators. Last year working as a Lead of Tooling Team, making devs lifes a little better, through CI, webhook, github and slack internal apps, and maintaining a docker swarm for staging environments. Over the year worked on automated testing and benchmarking, and rebuilt the train release git logic for deploying the app in typescript.',
+            'Senior programmer of Creápolis, an educative MMO. Worked on the first version of the game, a 3D Flash game with a proprietary engine, then in a second alpha version made in Unity. Also worked a lot in JS and made a scoreboard implementation via firebase (this was previous to google acquisition).',
+            'Web Developer. Working in cutting edge websites, videogames, Facebook and mobile apps. Most apps stack was: SQL database, PHP for backend (server side rendering, lol), JS for frontend, sometimes flash (mainly as FB apps, FB really sucked at that time, poor doc, no support, etc).',
+            'Video game portal. Lead writer, in charge of heavy criticism articles and daily news. Also, orchestrated the team that was part of Glopokast, one of the first argentinian video games themed podcasts.',
+            'Working on advertising games and microsites mostly in Flash (ActionScript 2 & 3), with vanilla JS to interact between multiple SWFs, and HTML and CSS for styling. As you may infer, this was a pure frontend, client side job.'
+            ];
+            const mouseMoveHandler = ({ offsetY }) => {
+              const pre = document.getElementById('exp');
+              let title;
+              for (let i = 0; i<ranges.length; i++) {
+                if (offsetY > ranges[i][0] && offsetY < ranges[i][1]) {
+                  title = texts[i];
+                  break;
+                }
+              }
+              if (!title) title = "";
+              pre.setAttribute('title', title); 
+            };
+          </script>
+          <pre id="exp" onmousemove="javascript:mouseMoveHandler(event)">
+  |--------------|                                                            
+  | 2023 -> 2024 | <b>Freelance work</b> and <i>videogames</i> [<a onclick="javascript:showContact()" href="#contact">available</a>]         
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                            
+  | 2021 -> 2023 | <b>Fullstack+ Developer</b> @ <i>Paperpile</i>                  
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                            
+  | 2016 -> 2020 | <b>Tech Lead</b> @ <i>Mural</i>                                
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                            
+  | 2014 -> 2015 | <b>Senior Game Programmer</b> @ <i>Competir</i>                
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                            
+  | 2009 -> 2014 | <b>Senior Web Developer</b> @ <i>MDI</i>                         
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                             
+  | 2009 -> 2011 | <b>Writer</b> @ <i>Glopok</i>                                    
+  |--------------|                                                            
+          |                                                                   
+          |                                                                   
+  |--------------|                                                            
+  | 2008 -> 2009 | <b>Semi-senior Web Developer</b> @ <i>Webar Interactive</i>       
+  |--------------|                                                            
+            </pre>
+        </div>
+      </details>
+      <details class="section">
+        <summary>Personal Projects</summary>
+        <p>
+          Check my last 
+          <select id="select" name="count" hx-post="/api/projects" hx-target="#projects"></select> 
+          <script>
+            const select = document.getElementById('select');
+            for (let i = 0; i<20; i++) {
+              const n = i + 1;
+              const o = document.createElement('option');
+              o.value = n
+              o.label = n;
+              o.selected = n === 3;
+              select.appendChild(o);
+            }
+          </script>
+          personal projects.</p>
+        <table id="projects-table" class="projects-table">
+          <thead>
+            <th>Repository</th>
+            <th>Description</th>
+            <th>Languages</th>
+            <th>Site</th>
+          </thead>
+          <tbody id="projects" hx-post="/api/projects" hx-vals='{ "count": "3" }' hx-trigger="load once">
+          </tbody>
+        </table>
+      </details>
+      <details id="contact" class="section" hx-trigger="click once" hx-post="/api/contact" hx-target=".contact-target">
+        <summary>Contact</summary>
+        <div class="contact-target"></div>
+      </details>
+      <details class="section">
+        <summary>QR <sup style="font-size: 16px;">(for sharing purposes)</sup></summary>
+        <img src="./static/qr.svg" style="margin-top: 4px; margin-bottom: 4px;" />
+      </details>
+      <footer>
+        ©Copyright 2025. Made by Carmon with <a href="http://htmx.org" target="_blank">HTMX</a> and <a href="http://vercel.com" target="_blank">vercel</a>. Check the repository <a href="https://github.com/carmon/dotenv2025" target="_blank">here</a>.
+      </footer>
+      <script>
+        const isMobile = navigator.userAgent.match(/Mobile/i);
+        if (isMobile) {
+          document.getElementById("card").style.width = '320px';
+          document.getElementById("exp").style.fontSize = '8px';
+          document.getElementById("projects-table").style.fontSize = '9px';
+        }
+
+        const logREADME = async () => {
+          const file = await fetch('./README.md');
+          const text = await file.text();
+          console.log(text);
+        };
+        logREADME();
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "dotdev2025",
+  "version": "0.1.0",
+  "dependencies": {
+    "mongodb": "^6.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2"
+  }
+}
