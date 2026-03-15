@@ -97,63 +97,59 @@
               }; 
               setTimeout(blink, 120);
             };
-            const ranges = [[80, 120], [150, 190], [220, 260], [300, 340], [380, 420], [440, 480]]
-            const texts = [
-            'I started working on React/preact standalone component to convert citation formats and ids from one to another (you can check this in https://www.bibtex.com/converters/). Implemented a prototype to read Word documents through the ASPOSE C++ API in backend, the prototype also used docs from Google Docs using (JS) gdocs API. Worked on SSO logins. Implemented a citation format highlighter in react using PrismJS, also for CSL citations and formats like BibTeX, JSON, RIS, and others. Worked on a URL converter to recreate the UI state of the app (redux) from different URL routes. Implemented a server-side rendered page for sharing data from the app to non-logged users. Also worked on UI using Storybook and Figma. Was part of the team that ported the old app done in ExtJS to a ReactJS version.',
-            'First as a part of web team, working on backend with NodeJS/Express and frontend with AmpersandJS/React, then being part of a Canvas team, working with React through webpack. I also took ownership of some enterprise services like a web to PDF/PNG exporter coded partially in Ruby and partially in NodeJS. Also worked with Storybook, Backstop and Jenkins for CI testing. Was 6 months in charge of the Facilitation Team, making full stack product features for the primary users of the app, the facilitators. Last year working as a Lead of Tooling Team, making devs lifes a little better, through CI, webhook, github and slack internal apps, and maintaining a docker swarm for staging environments. Over the year worked on automated testing and benchmarking, and rebuilt the train release git logic for deploying the app in typescript.',
-            'Senior programmer of Creápolis, an educative MMO. Worked on the first version of the game, a 3D Flash game with a proprietary engine, then in a second alpha version made in Unity. Also worked a lot in JS and made a scoreboard implementation via firebase (this was previous to google acquisition).',
-            'Web Developer. Working in cutting edge websites, videogames, Facebook and mobile apps. Most apps stack was: SQL database, PHP for backend (server side rendering, lol), JS for frontend, sometimes flash (mainly as FB apps, FB really sucked at that time, poor doc, no support, etc).',
-            'Video game portal. Lead writer, in charge of heavy criticism articles and daily news. Also, orchestrated the team that was part of Glopokast, one of the first argentinian video games themed podcasts.',
-            'Working on advertising games and microsites mostly in Flash (ActionScript 2 & 3), with vanilla JS to interact between multiple SWFs, and HTML and CSS for styling. As you may infer, this was a pure frontend, client side job.'
+            const expDescriptions = [
+              'Developer at FlipaClip. Working on APIs, webview sections, tooling, and infrastructure.',
+              'Freelance projects and game development, with a focus on practical shipping and small team collaboration.',
+              'React and backend work at Paperpile: converters, SSO, URL state recreation, sharing pages, and migration from ExtJS to React.',
+              'Full-stack and tooling leadership at Mural: product features, CI systems, release automation, and developer tooling.',
+              'Senior programmer at Competir, working on Creapolis across Flash and Unity versions with gameplay and services code.',
+              'Senior web developer at MDI building websites, games, and social/mobile apps with SQL, PHP, and JavaScript.',
+              'Writer at Glopok leading criticism and news while coordinating team podcast collaboration.',
+              'Semi-senior web developer at Webar Interactive building advergames and microsites with Flash, JS, HTML, and CSS.'
             ];
-            const mouseMoveHandler = ({ offsetY }) => {
-              const pre = document.getElementById('exp');
-              let title;
-              for (let i = 0; i<ranges.length; i++) {
-                if (offsetY > ranges[i][0] && offsetY < ranges[i][1]) {
-                  title = texts[i];
-                  break;
-                }
-              }
-              if (!title) title = "";
-              pre.setAttribute('title', title); 
+            const bindExpDescriptions = () => {
+              const items = document.querySelectorAll('[data-exp-index]');
+              items.forEach((item) => {
+                const index = Number(item.dataset.expIndex);
+                item.setAttribute('title', expDescriptions[index] || '');
+              });
             };
+            setTimeout(bindExpDescriptions, 0);
           </script>
-          <pre id="exp" onmousemove="javascript:mouseMoveHandler(event)">
-  |--------------|                                                            
-  | 2023 -> 2024 | <b>Freelance work</b> and <i>videogames</i> [<a onclick="javascript:showContact()" href="#contact">available</a>]         
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                            
-  | 2021 -> 2023 | <b>Fullstack+ Developer</b> @ <i>Paperpile</i>                  
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                            
-  | 2016 -> 2020 | <b>Tech Lead</b> @ <i>Mural</i>                                
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                            
-  | 2014 -> 2015 | <b>Senior Game Programmer</b> @ <i>Competir</i>                
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                            
-  | 2009 -> 2014 | <b>Senior Web Developer</b> @ <i>MDI</i>                         
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                             
-  | 2009 -> 2011 | <b>Writer</b> @ <i>Glopok</i>                                    
-  |--------------|                                                            
-          |                                                                   
-          |                                                                   
-  |--------------|                                                            
-  | 2008 -> 2009 | <b>Semi-senior Web Developer</b> @ <i>Webar Interactive</i>       
-  |--------------|                                                            
-            </pre>
+          <div id="exp" class="experience-list">
+            <article class="exp-item" data-exp-index="0">
+              <span class="exp-years">2025 -> now</span>
+              <span class="exp-role"><b>Developer</b> @ <i>FlipaClip</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="1">
+              <span class="exp-years">2023 -> 2025</span>
+              <span class="exp-role"><b>Freelance work</b> and <i>videogames</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="2">
+              <span class="exp-years">2021 -> 2023</span>
+              <span class="exp-role"><b>Fullstack+ Developer</b> @ <i>Paperpile</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="3">
+              <span class="exp-years">2016 -> 2020</span>
+              <span class="exp-role"><b>Tech Lead</b> @ <i>Mural</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="4">
+              <span class="exp-years">2014 -> 2015</span>
+              <span class="exp-role"><b>Senior Game Programmer</b> @ <i>Competir</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="5">
+              <span class="exp-years">2009 -> 2014</span>
+              <span class="exp-role"><b>Senior Web Developer</b> @ <i>MDI</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="6">
+              <span class="exp-years">2009 -> 2011</span>
+              <span class="exp-role"><b>Writer</b> @ <i>Glopok</i></span>
+            </article>
+            <article class="exp-item" data-exp-index="7">
+              <span class="exp-years">2008 -> 2009</span>
+              <span class="exp-role"><b>Semi-senior Web Developer</b> @ <i>Webar Interactive</i></span>
+            </article>
+          </div>
         </div>
       </details>
       <details class="section">
@@ -199,7 +195,6 @@
         const isMobile = navigator.userAgent.match(/Mobile/i);
         if (isMobile) {
           document.getElementById("card").style.width = '320px';
-          document.getElementById("exp").style.fontSize = '8px';
           document.getElementById("projects-table").style.fontSize = '9px';
         }
 
